@@ -4,6 +4,16 @@ const express = require('express');
 const app = express();
 
 app.use(express.json());
+app.use((req, res, next) => {
+  console.log('Hello from custom middleware');
+  next();
+});
+
+//add data to the request with middleware
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  next();
+})
 
 const port = 3000;
 
@@ -11,6 +21,7 @@ const tours = JSON.parse(fs.readFileSync(`${__dirname}/dev-data/data/tours-simpl
 
 const getAllTours = (req, res) => {
   res.status(200).json({
+    requestedAt: req.requestTime,
     status: 'success',
     results: tours.length,
     data: {
