@@ -22,8 +22,6 @@ app.get('/api/v1/tours', (req, res) => {
 app.get('/api/v1/tours/:id', (req, res) => {
 
   const id = req.params.id * 1;
-
-  
   const tour = tours.find(el => el.id === id)
   if (!tour) {
     return res.status(404).json(
@@ -55,6 +53,43 @@ app.post('/api/v1/tours', (req, res) => {
       }
     )
   });
+});
+
+app.patch('/api/v1/tours/:id', (req, res) => {
+  const id = req.params.id * 1;
+  if (id > tours.length) {
+    return res.status(404).json(
+      {
+        status: 'fail', 
+        message: 'id not found'
+      }
+    );
+  }
+  res.status(200).json(
+    {
+      status:'success',
+      data: {
+        tour: 'patch route success.  fake update'
+      }
+    }
+  )
+});
+app.delete('/api/v1/tours/:id', (req, res) => {
+  const id = req.params.id * 1;
+  if (id > tours.length) {
+    return res.status(404).json(
+      {
+        status: 'fail', 
+        message: 'id not found'
+      }
+    );
+  }
+  res.status(200).json(
+    {
+      status:'success',
+      data: 'fake delete route test'
+    }
+  )
 });
 
 app.listen(port, () => {
