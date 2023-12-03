@@ -22,15 +22,9 @@ app.use((req, res, next) => {
   next();
 })
 
-const port = 3000;
-
 // mount routers
 
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 
-// start server
-
-app.listen(port, () => {
-  console.log(`App running on port ${port}...`);
-});
+module.exports = app;
