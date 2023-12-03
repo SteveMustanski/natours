@@ -7,9 +7,13 @@ const userRouter = require('./routes/userRoutes');
 const app = express();
 
 // middleware
-
 app.use(express.json());
-app.use(morgan('dev'));
+if(process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
+
+// basic example for how to serve static
+app.use(express.static(`${__dirname}/public`));
 
 app.use((req, res, next) => {
   console.log('Hello from custom middleware');
